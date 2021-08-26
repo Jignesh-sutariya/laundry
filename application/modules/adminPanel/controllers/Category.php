@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Category extends Admin_controller {
+class Category extends Admin_Controller {
 
 	protected $redirect = 'category';
     protected $title = 'Category';

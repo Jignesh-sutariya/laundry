@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Order extends Admin_controller {
+class Order extends Admin_Controller {
 
 	protected $redirect = 'order';
     protected $title = 'Order';

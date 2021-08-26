@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class SubCategory extends Admin_controller {
+class SubCategory extends Admin_Controller {
 
 	protected $redirect = 'subCategory';
     protected $title = 'Sub Category';
