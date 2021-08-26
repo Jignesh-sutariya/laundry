@@ -31,7 +31,7 @@ if($_SERVER['HTTP_HOST'] == 'localhost'){
         'hostname' => 'localhost',
         'username' => 'denseeqq_demo',
         'password' => 'demo@321',
-        'database' => 'denseeqq_laundry',
+        'database' => 'denseeqq_laundrynew',
         'dbdriver' => 'mysqli',
         'dbprefix' => '',
         'pconnect' => (ENVIRONMENT !== 'production'),
