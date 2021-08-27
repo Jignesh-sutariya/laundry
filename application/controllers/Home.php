@@ -4,7 +4,6 @@ class Home extends Public_controller  {
 
 	public function index()
 	{
-		echo "testing ssh login for github";
 		return redirect(admin());
 	}
 
