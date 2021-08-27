@@ -4,6 +4,7 @@ class Home extends Public_controller  {
 
 	public function index()
 	{
+		echo "server texting";
 		return redirect(admin());
 	}
 
