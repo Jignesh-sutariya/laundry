@@ -35,6 +35,6 @@ class Delivery_boy_api_modal extends Public_model
 						->from('orders o')
 						->where($where)
 						->get()
-						->row_array();
+						->result_array();
 	}
 }

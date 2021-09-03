@@ -60,7 +60,7 @@
         <section class="login-block">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12">kjkdkj
                         <div class="text-center">
                             <img src="<?= base_url('assets/images/logo.png') ?>" alt="logo.png" width="200">
                         </div>

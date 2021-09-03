@@ -83,16 +83,17 @@ class User_api_modal extends Public_model
 
 	public function item_list()
 	{
-		return $this->db->select("id, item_name, price")
-						->from('item')
+		return $this->db->select("i.id, i.item_name, i.price, c.quantity")
+						->from('item i')
 						->where(['is_deleted' => 0, 'sub_cat_id' => $this->input->get('sub_cat_id')])
+						->join('add_cart c', 'i.id = c.item_id', 'left')
 						->get()
 						->result_array();
 	}
 
 	public function cart_list($api)
 	{
-		return $this->db->select("c.item_id, c.quantity, i.item_name, i.price, i.sub_cat_id, i.cat_id")
+		return $this->db->select("c.item_id, c.quantity, i.item_name, i.price, i.sub_cat_id, i.cat_id, (c.quantity * i.price) total")
 						->from('add_cart c')
 						->where(['c.u_id' => $api, 'i.is_deleted' => 0])
 						->join('item i', 'c.item_id = i.id')
@@ -167,10 +168,25 @@ class User_api_modal extends Public_model
 				'u_id'   	    => $api
 			];
 		
-		return $this->db->select('o.id, o.total_bill, o.pickup_date, o.pickup_time, o.delivery_date, o.delivery_charge')
+		return array_map(function($arr){
+			return [
+				'id' => $arr['id'],
+				'total_bill' => $arr['total_bill'],
+				'pickup_date' => $arr['pickup_date'],
+				'pickup_time' => $arr['pickup_time'],
+				'delivery_date' => $arr['delivery_date'],
+				'delivery_charge' => $arr['delivery_charge'],
+				'items' => $this->db->select('i.item_name')
+									->from('sub_orders so')
+									->where(['so.o_id' => $arr['id']])
+									->join('item i', 'so.item_id = i.id')
+									->get()
+									->result_array()
+			];
+		}, $this->db->select('o.id, o.total_bill, o.pickup_date, o.pickup_time, o.delivery_date, o.delivery_charge')
 						->from('orders o')
 						->where($where)
 						->get()
-						->row_array();
+						->result_array());
 	}
 }
