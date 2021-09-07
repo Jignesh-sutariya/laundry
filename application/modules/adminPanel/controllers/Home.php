@@ -12,7 +12,27 @@ class Home extends Admin_Controller {
 		$data['dataTable'] = TRUE;
         $data['refresh'] = TRUE;
         $data['url'] = $this->redirect.'orders';
-
+        /* $cats = $this->main->getall('category', 'id', ['is_deleted' => 0]);
+        $this->load->helper('string');
+        foreach ($cats as $cat) {
+            foreach (['MEN', 'WOMEN', 'KIDS', 'House Hold'] as $sub) {
+                $subcat = [
+                    'sub_cat_name' => $sub,
+                    'sub_cat_image' => 'NA',
+                    'cat_id' => $cat['id']
+                ];
+                $id = $this->main->add($subcat, 'sub_category');
+                for ($i=0; $i < 3; $i++) { 
+                    $item = [
+                                'item_name' => random_string('alpha', 10),
+                                'price' => random_string('numeric', 2),
+                                'sub_cat_id' => $id,
+                                'cat_id' => $cat['id']
+                    ];
+                    $this->main->add($item, 'item');
+                }
+            }
+        } */
 		return $this->template->load('template', 'dashboard', $data);
 	}
 
