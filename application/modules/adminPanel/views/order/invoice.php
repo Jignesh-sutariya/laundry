@@ -51,8 +51,9 @@
 							<th>Category</th>
 							<th>Sub Category</th>
 							<th>Item</th>
-							<th>Quantity</th>
 							<th>Price</th>
+							<th>Quantity</th>
+							<th>Total</th>
 						</tr>
 						<?php foreach ($data['details'] as $k => $v): ?>
 						<tr>
@@ -60,16 +61,21 @@
 							<td style="width: auto;"><?= $v['cat_name'] ?></td>
 							<td style="width: auto;"><?= $v['sub_cat_name'] ?></td>
 							<td style="width: auto;"><?= $v['item_name'] ?></td>
-							<td style="width: auto;"><?= $v['quantity'] ?></td>
 							<td style="width: auto;"><?= $v['price'] ?></td>
+							<td style="width: auto;"><?= $v['quantity'] ?></td>
+							<td style="width: auto;"> ₹ <?= $v['price'] * $v['quantity'] ?></td>
 						</tr>
 						<?php endforeach ?>
 						<tr>
-							<td colspan="5"  class="total-line grandtotal">Delivery Charge</td>
+							<td colspan="6"  class="total-line grandtotal">Delivery Charge</td>
 							<td class="total-value grandtotal"><div class="due"> ₹ <?= $data['delivery_charge'] ?></div></td>
 						</tr>
 						<tr>
-							<td colspan="5"  class="total-line grandtotal">Grand Total</td>
+							<td colspan="6"  class="total-line grandtotal">Total</td>
+							<td class="total-value grandtotal"><div class="due"> ₹ <?= $data['total_bill'] ?></div></td>
+						</tr>
+						<tr>
+							<td colspan="6"  class="total-line grandtotal">Grand Total</td>
 							<td class="total-value grandtotal"><div class="due"> ₹ <?= $data['delivery_charge'] + $data['total_bill'] ?></div></td>
 						</tr>
 					</table>

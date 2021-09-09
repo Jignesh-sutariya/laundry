@@ -99,30 +99,34 @@ class Admin_Controller extends MY_Controller
             
             return $this->load->view(admin("order/assign"), $data);
         }else{
-            $this->form_validation->set_rules('del_boy', 'Delivery Boy', 'required', ['required' => '%s is required']);
+            $this->form_validation->set_rules('del_boy', '', 'required');
             if ($this->form_validation->run() == FALSE)
             $response = [
-                    'message' => str_replace("*", "", strip_tags(validation_errors('','<br>'))),
-                    'status' => false
-                ];
+                'message' => str_replace("*", "", strip_tags(validation_errors('','<br>'))),
+                'status' => false
+            ];
             else{
                 $post = [
                     'del_boy'    => d_id($this->input->post('del_boy')),
                     'admin_note' => $this->input->post('admin_note')
                 ];
-
-                if ($this->main->update(['id' => d_id($id)], $post, 'orders'))
+                
+                if ($this->main->update(['id' => d_id($id)], $post, 'orders')){
+                    $user_id = $this->main->check('orders', ['id' => d_id($id)], 'u_id');
+                    send_notification("Your order assigned to delivery boy.", $this->main->check('users', ['id' => $user_id], 'access_token'));
+                    send_notification("You assigned an order.", $this->main->check('delivery_boy', ['id' => $post['del_boy']], 'access_token'));
                     $response = [
                         'message' => "Delivery boy assigned.",
                         'status' => true
                     ];
+                }
                 else
                     $response = [
                         'message' => "Delivery boy not assigned. Try again.",
                         'status' => false
                     ];
             }
-            echo json_encode($response);
+            die(json_encode($response));
         }
     }
 

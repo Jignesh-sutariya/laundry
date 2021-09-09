@@ -44,8 +44,8 @@
 							<th>Category</th>
 							<th>Sub Category</th>
 							<th>Item</th>
-							<th>Quantity</th>
 							<th>Price</th>
+							<th>Quantity</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,8 +55,8 @@
 							<td style="width: 25%"><?= $v['cat_name'] ?></td>
 							<td style="width: 25%"><?= $v['sub_cat_name'] ?></td>
 							<td style="width: 25%"><?= $v['item_name'] ?></td>
-							<td style="width: 10%"><?= $v['quantity'] ?></td>
 							<td style="width: 10%"><?= $v['price'] ?></td>
+							<td style="width: 10%"><?= $v['quantity'] ?></td>
 						</tr>
 						<?php endforeach ?>
 					</tbody>
@@ -66,8 +66,7 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
-			<table
-				class="table table-responsive invoice-table invoice-total">
+			<table class="table table-responsive invoice-table invoice-total">
 				<tbody>
 					<tr>
 						<th>Delivery Charge :</th>

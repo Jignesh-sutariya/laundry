@@ -111,20 +111,27 @@ if ( ! function_exists('convert_webp'))
     }
 }
 
-if ( ! function_exists('send_sms'))
+if ( ! function_exists('send_notification'))
 {
-    function send_sms($contacts, $sms)
+    function send_notification($body, $token)
     {
-        $url = 'key=&routeid=7&type=text&contacts='.$contacts.'&senderid=&template_id=&campaign=&msg='.urlencode($sms);
+        $url = "https://fcm.googleapis.com/fcm/send";
+		$serverKey = 'AAAARoSRS8M:APA91bHUfY6wT9MmDimXBBNCSbPwoEhziNPhdPSZOfnmCp85ml6arGAZqUnIvEZmNRoZduxzyV5e9MjiOztC7387Og2cBMXg91cNxuG1t_jDcSUqGCvC1TtiQx9MFYkS7lcx0Srps4Ot';
+		
+		$notification = ['title' => APP_NAME , 'body' => $body, 'sound' => 'default', 'badge' => '1', 'image' => base_url('assets/images/favicon.png')];
+		$arrayToSend = ['to' => $token, 'notification' => $notification,'priority'=>'high'];
 
-        $base_URL ='http://denseteklearning.com/app/smsapi/index?'.$url;
-        
-        $curl_handle = curl_init();
-        curl_setopt($curl_handle,CURLOPT_URL,$base_URL);
-        curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,2);
-        curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,1);
-        $result = curl_exec($curl_handle);
-        curl_close($curl_handle);
-        return $result;
+		$json = json_encode($arrayToSend);
+		$headers[] = 'Content-Type: application/json';
+		$headers[] = 'Authorization: key='. $serverKey;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+		curl_setopt($ch, CURLOPT_HTTPHEADER,$headers);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_exec($ch);
+		curl_close($ch);
+		return;
     }
 }

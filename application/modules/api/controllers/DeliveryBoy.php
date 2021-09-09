@@ -141,13 +141,32 @@ class DeliveryBoy extends Public_controller  {
 		}
 	}
 
+	public function order_details()
+	{
+		get();
+		$api = authenticate($this->table);
+		verifyRequiredParams(['order_id']);
+		
+		if ($row = $this->api->order_details()) {
+			$response["row"] = $row;
+			$response["error"] = TRUE;
+            $response['message'] = "Order details successfull.";
+            echoResponse(200, $response);
+		}else{
+			$response["error"] = TRUE;
+            $response['message'] = "Order details not successfull. Try again.";
+            echoResponse(400, $response);
+		}
+	}
+
 	public function order_status()
 	{
 		post();
 		$api = authenticate($this->table);
 		verifyRequiredParams(['status', 'o_id']);
+		$del_boy = $this->input->get('cancel') ? 0 : $api;
 		
-		$post = ['orders_status' => $this->input->post('status')];
+		$post = ['orders_status' => $this->input->post('status'), 'del_boy' => $del_boy];
 		
 		if ($row = $this->main->update(['id' => $this->input->post('o_id')], $post, 'orders')) {
 			$response["error"] = TRUE;
