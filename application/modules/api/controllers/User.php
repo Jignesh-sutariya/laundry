@@ -333,6 +333,23 @@ class User extends Public_controller  {
 		}
 	}
 
+	public function flush_cart()
+	{
+		get();
+		$api = authenticate($this->table);
+		
+		if ($this->api->delete('add_cart', ['u_id' => $api]))
+		{
+			$response["error"] = TRUE;
+			$response['message'] = "Flush cart successfull.";
+			echoResponse(200, $response);
+		}else{
+			$response["error"] = TRUE;
+			$response['message'] = "Flush cart not successfull. Try again.";
+			echoResponse(400, $response);
+		}
+	}
+
 	public function cart_list()
 	{
 		get();
