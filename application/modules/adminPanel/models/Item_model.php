@@ -6,7 +6,7 @@
 class Item_model extends Admin_model
 {
 	public $table = "item i";
-	public $select_column = ['i.id', 'i.item_name', 'price', 'sc.sub_cat_name', 'c.cat_name'];
+	public $select_column = ['i.id', 'i.item_name', 'price', 'sc.sub_cat_name', 'c.cat_name', 'i.price_type'];
 	public $search_column = ['i.id', 'i.item_name', 'price', 'sc.sub_cat_name', 'c.cat_name'];
     public $order_column = [null, 'i.item_name', 'price', 'sc.sub_cat_name', 'c.cat_name', null];
 	public $order = ['i.id' => 'DESC'];

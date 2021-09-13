@@ -29,7 +29,7 @@ class Item extends Admin_Controller {
             $sub_array = [];
             $sub_array[] = $sr;
             $sub_array[] = $row->item_name;
-            $sub_array[] = $row->price;
+            $sub_array[] = "$row->price per $row->price_type";
             $sub_array[] = $row->sub_cat_name;
             $sub_array[] = $row->cat_name;
             
@@ -84,6 +84,7 @@ class Item extends Admin_Controller {
                 $post = [
                         'item_name'  => $this->input->post('item_name'),
 					    'price' 	 => $this->input->post('price'),
+                        'price_type' => $this->input->post('price_type'),
 					    'sub_cat_id' => d_id($this->input->post('sub_cat_id')),
 					    'cat_id'     => d_id($this->input->post('cat_id'))
                 ];
@@ -112,7 +113,7 @@ class Item extends Admin_Controller {
             $data['operation'] = 'update';
             $data['url'] = $this->redirect;
             $data['id'] = $id;
-            $data['data'] = $this->main->get($this->table, 'item_name, price, sub_cat_id, cat_id', ['id' => d_id($id)]);
+            $data['data'] = $this->main->get($this->table, 'item_name, price, price_type, sub_cat_id, cat_id', ['id' => d_id($id)]);
             $data['cats'] = $this->main->getall('category', 'id, cat_name', ['is_deleted' => 0]);
 
             return $this->load->view("$this->redirect/update", $data);
@@ -127,6 +128,7 @@ class Item extends Admin_Controller {
                 $post = [
                         'item_name'  => $this->input->post('item_name'),
 					    'price' 	 => $this->input->post('price'),
+					    'price_type' => $this->input->post('price_type'),
 					    'sub_cat_id' => d_id($this->input->post('sub_cat_id')),
 					    'cat_id'     => d_id($this->input->post('cat_id'))
                 ];
@@ -204,6 +206,14 @@ class Item extends Admin_Controller {
             'errors' => [
                 'required' => "%s is Required",
                 'is_natural_no_zero' => "Invalid %s"
+            ]
+        ],
+        [
+            'field' => 'price_type',
+            'label' => 'Item price type',
+            'rules' => 'required',
+            'errors' => [
+                'required' => "%s is Required"
             ]
         ]
     ];

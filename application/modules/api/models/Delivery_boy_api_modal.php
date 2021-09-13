@@ -44,7 +44,7 @@ class Delivery_boy_api_modal extends Public_model
 	{
 		$where = [ 'o_id' => $this->input->get('order_id') ];
 		
-		return $this->db->select('so.price, so.quantity, i.item_name')
+		return $this->db->select('so.price, so.quantity, i.item_name, i.price_type')
 						->from('sub_orders so')
 						->where($where)
 						->join('item i', 'i.id = so.item_id')

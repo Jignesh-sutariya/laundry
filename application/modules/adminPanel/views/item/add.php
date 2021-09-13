@@ -28,5 +28,14 @@
 			<?= form_input('price', '', 'class="form-control form-control-round" id="price" placeholder="Item Price" required="true" maxLength="10"') ?>
 		</div>
 	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<select class="form-control" name="price_type" id="price_type">
+				<option selected="" disabled="">Item price type</option>
+				<option value="Piece">Per Piece</option>
+				<option value="KG">Per KG</option>
+			</select>
+		</div>
+	</div>
 </div>
 <?= form_close() ?>
