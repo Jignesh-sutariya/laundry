@@ -176,7 +176,7 @@ class User_api_modal extends Public_model
 				'pickup_time' => $arr['pickup_time'],
 				'delivery_date' => $arr['delivery_date'],
 				'delivery_charge' => $arr['delivery_charge'],
-				'items' => $this->db->select('i.item_name, i.price_type')
+				'items' => $this->db->select('i.item_name, i.price_type, so.quantity, so.price')
 									->from('sub_orders so')
 									->where(['so.o_id' => $arr['id']])
 									->join('item i', 'so.item_id = i.id')

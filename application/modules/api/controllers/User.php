@@ -362,9 +362,10 @@ class User extends Public_controller  {
             $response['message'] = "Cart list successfull.";
             echoResponse(200, $response);
 		}else{
+			$response["row"] = [];
 			$response["error"] = TRUE;
             $response['message'] = "Cart list not successfull. Try again.";
-            echoResponse(400, $response);
+            echoResponse(200, $response);
 		}
 	}
 
